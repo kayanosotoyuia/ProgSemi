@@ -1,0 +1,8 @@
+push test
+
+$ git clone https://github.com/ユーザー名/“namae”
+
+$ git add hello.txt
+$ git commit -m 'ファイルを追加'
+
+$ git push
