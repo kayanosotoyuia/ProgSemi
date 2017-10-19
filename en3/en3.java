@@ -1,57 +1,97 @@
 
-import java.io.*;
-import java.util.*;
 
+import java.io.*;
+import java.io.FileReader;
 
 public class en3 {
 public static void main ( String[] args ) throws Exception {
+        File file = new File("/Users/k14128kk/Desktop/java/data/data05.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
 
+        String str;
+        String[] strarray = new String[5];
+        int[][] num = new int[5][5];
 
-        System.out.println("頂点の数を入力してください");
-		BufferedReader br =
-			new BufferedReader(new InputStreamReader(System.in));
-
-        String s = br.readLine();
-        int v = Integer.parseInt(s);
-
-        int test[] = new int[v];
-
-
-
-        System.out.println("次数を入力してください(,区切り)");
-        String[] str = br.readLine().split(",");
-
-
-        for(int i = 0; i < v ; i++){
-            test[i] = Integer.parseInt(str[i]);
-        }
-
-
-        if(CanOneLine(test)){
-            System.out.println("できる");
-        }else{
-            System.out.println("できない");
-        }
-
-
-	}
-	public static boolean CanOneLine(int test[]){
-        String s1;
-        int tmp;
         int count = 0;
 
-        for(int i = 0; i< test.length;i++){
-            if(test[i]%2 == 1){
-                count++;
+        while((str = br.readLine()) != null){
+            strarray[count] = str;
+            count++;
+        }
+
+
+
+        for(int i = 0; i < 5; i++){
+            String test[] = strarray[i].split(",");
+
+            for(int j = 0; j < 5; j++){
+                num[i][j] =  Integer.parseInt(test[j]);
             }
         }
 
-        if(count%2 == 0){
-            return true;
-        }else{
-            return false;
+        //判定式
+
+        boolean flg = false;
+        int ans = 0,tmp;
+
+        //縦
+        for(int i = 0; i < 5; i++){
+            tmp = num[i][0];
+            count = 0;
+            for(int j = 0; j < 5; j++){
+                if(tmp == num[i][j]){
+                    count++;
+                    if(count == 5){
+                        flg = true;
+                        ans = tmp;
+                    }
+                }
+            }
         }
 
-	}
+        //横
+        for(int i = 0; i < 5; i++){
+            tmp = num[0][i];
+            count = 0;
+            for(int j = 0; j < 5; j++){
+                if(tmp == num[j][i]){
+                    count++;
+                    if(count == 5){
+                        flg = true;
+                        ans = tmp;
+                    }
+                }
+            }
+        }
 
+
+        //ななめ
+        tmp = num[0][0];
+        if(tmp == num[1][1]&&
+            tmp == num[2][2]&&
+            tmp == num[3][3]&&
+            tmp == num[4][4]){
+                ans = tmp;
+                flg = true;
+            }
+
+        tmp = num[0][4];
+        if(tmp == num[1][3]&&
+            tmp == num[2][2]&&
+            tmp == num[3][1]&&
+            tmp == num[4][0]){
+                ans = tmp;
+                flg = true;
+            }
+
+
+
+        if(flg){
+            System.out.println(ans);
+        }else{
+            System.out.println("引き分け");
+        }
+
+
+	}
 }
