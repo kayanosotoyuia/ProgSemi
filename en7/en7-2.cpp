@@ -25,7 +25,7 @@ int main()
 {
     //初期値の設定
     resetcanpas();
-    //障害物の設定
+    //点を設定
     setdot();
 
     for(int i = 0; i < 7; i++){
